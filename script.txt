@@ -1,123 +1,133 @@
-                                   
-                                 
+                            
 
+                            
 
-Disini saya akan mencoba mentutorial tentang menggabungkan table database menggunakan perintah JOIN
 
 
-Pertama kita membuat sebuah database dengan nama 'sewamobil'
 
+             Kali ini saya akan mengenalkan tentang perintah-perintah SELECT
 
 
 
 
-dan membuat beberapa tabel diantaranya :
+             Disini saya sudah menyiapkan database dengan nama ' data ' dan
+             juga saya sudah menyertakan 2 tabel yang pertama tabel 'pegawai'
+             yang kedua tabel ' pet '
 
 
 
 
 
-TABEL MOBIL
-dengan field di dalamnya yaitu:
+             Dan saya juga sudah menginsert data-data dari kedua tabel tersebut
 
-+------+-------+-----------+---------+----------+
-| kode | jenis | merk      | tarif   | nopol    |
-+------+-------+-----------+---------+----------+
 
 
 
+             Pertama kita akan menampilkan data-data yang ada di tabel pegawai
 
+             1. Menampilkan data pegawai yang gajinya bukan 2.000.000 dan 1.250.000!  
+             Perintahnya adalah :
 
+             SELECT * FROM pegawai WHERE gaji<>'2000000' AND gaji<>'1250000';
 
-TABEL PELANGGAN
-dengan field di dalamnya yaitu :
 
-+------+--------------+--------+------------------------+----------+---------+---------+
-| kode | nama         | kontak | alamat                 | kota     | kodepos | telepon |
-+------+--------------+--------+------------------------+----------+---------+---------+
 
 
+             2. Menampilkan data pegawai yang tunjangannya NULL
 
+             SELECT * FROM pegawai WHERE tunjangan='NULL';
+             
 
 
 
-TABEL SEWA 
-dengan field di dalamnya yaitu :
 
-+--------------+---------------+------------+-----------+----------+----------+
-| nofaktursewa | kodepelanggan | tglsewa    | kodemobil | lamasewa | uangmuka |
-+--------------+---------------+------------+-----------+----------+----------+
+             3. Menampilkan data pegawai yang tunjanganya tidak NULL!
 
+             SELECT * FROM pegawai WHERE tunjangan<>'NULL';  
 
 
 
 
 
 
-dan isi data-data pada setiap tabel kira-kira seperti berikut!
+             4. Menampilkan jumlah baris pada tabel pegawai!
 
+             SELECT COUNT(id_pegawai) FROM pegawai;
 
 
 
 
 
+             5. Menampilkan jumlah total gaji di tabel pegawai!
+             SELECT SUM(gaji) AS jumlah FROM pegawai;
 
 
 
-oke kita langsung ke bagaimana cara melakukan join pada tabel-tabel yang sudah kita buat tadi
 
 
 
 
+             6. Menampilkan rata-rata gaji pegawai!
+             SELECT AVG(gaji) AS rerata FROM pegawai;
 
 
 
 
 
-1. lakukan join terhadap tabel mobil dan sewa hingga menampilkan data seperti berikut 
 
-+------+-------+-----------+--------------+------------+----------+----------+
-| kode | jenis | merk      | nofaktursewa | tglsewa    | lamasewa | uangmuka |
-+------+-------+-----------+--------------+------------+----------+----------+
-| M001 | SEDAN | BMW E5    | F001         | 2008-12-01 | 2        | 200000   |
-| M003 | BUS   | MERCEDEZ  | F001         | 2008-12-01 | 2        | 200000   |
-| M002 | SEDAN | HONDA CRV | F003         | 2008-12-02 | 1        | 100000   |
-| M004 | BUS   | DYNA      | NULL         | NULL       | NULL     | NULL     |
-| M005 | TRUCK | HYNO ZX   | NULL         | NULL       | NULL     | NULL     |
-| M006 | TRUCK | DYNA X1   | NULL         | NULL       | NULL     | NULL     |
-+------+-------+-----------+--------------+------------+----------+----------+
 
 
-2. lakukan join tabel sewa, pelanggan dan mobil sampai menampilkan data seperti berikut :
+             7. Menampilkan gaji terkecil!
+             SELECT MIN(gaji) AS terkecil FROM pegawai;
 
-+--------------+--------------+------------+-------+-----------+----------+----------+
-| nofaktursewa | nama         | tglsewa    | jenis | merk      | lamasewa | uangmuka |
-+--------------+--------------+------------+-------+-----------+----------+----------+
-| F001         | PT FOX RIVER | 2008-12-01 | SEDAN | BMW E5    | 2        | 200000   |
-| F001         | PT FOX RIVER | 2008-12-01 | BUS   | MERCEDEZ  | 2        | 200000   |
-| F003         | CV FOXCON    | 2008-12-02 | SEDAN | HONDA CRV | 1        | 100000   |
-+--------------+--------------+------------+-------+-----------+----------+----------+
 
 
 
 
 
-3. lakukan join tabel pelanggan dan tabel sewa hingga menampilkan data seperti berikut :
 
-+--------------+----------+--------------+------------+-----------+----------+----------+
-| nama         | kota     | nofaktursewa | tglsewa    | kodemobil | lamasewa | uangmuka |
-+--------------+----------+--------------+------------+-----------+----------+----------+
-| PT FOX RIVER | BENGKULU | F001         | 2008-12-01 | M001      | 2        | 200000   |
-| PT FOX RIVER | BENGKULU | F001         | 2008-12-01 | M003      | 2        | 200000   |
-| CV FOXCON    | JAKARTA  | F003         | 2008-12-02 | M002      | 1        | 100000   |
-| PT FARMACON  | LAMPUNG  | NULL         | NULL       | NULL      | NULL     | NULL     |
-+--------------+----------+--------------+------------+-----------+----------+----------+
+             8. Menampilkan gaji terbesar!
+              SELECT Max(gaji) AS tebesar FROM pegawai;
 
 
 
 
 
-DEMIKIAN TUTORIAL INI KURANG DAN LEBIHNYA HARAP DI MAKLUMI
-KRITIK DAN SARANYA TULIS DI KOLOM KOMENTAR 
-JANGAN LUPA SUBSCRIBE, LIKE AND SHARE 
 
+
+             Kemudian kita akan menampilkan data-data dari tabel pet
+             
+
+             1. Menampilkan jumlah hewan yang dimiliki setiap owner
+             SELECT owner , COUNT(name) AS jumlah FROM pet GROUP BY owner; 
+
+
+
+
+
+
+             2. Menampilkan jumlah hewan berdasarkan species
+             SELECT species, COUNT(name) AS jumlah FROM pet GROUP BY species;
+
+
+
+
+
+
+             3. Menampilkan jumlah hewan berdasarkan jenis kelamin
+             SELECT sex, COUNT(name) AS jumlah FROM pet GROUP BY sex;
+
+
+
+
+
+
+             4 Menampilkan jumlah hewan berdasarkan species dan jenis kelamin
+             SELECT species, sex, COUNT(name) AS jumlah FROM pet GROUP BY species, sex;
+
+
+
+
+             5. Menampilkan jumlah hewan berdasarkan species (cat dan dog saja) dan sex 
+
+				SELECT species='cat', species='dog', sex, COUNT(name) AS jumlah FROM pet GROUP BY species='cat', species='dog', sex;
